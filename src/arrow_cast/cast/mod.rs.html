@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `arrow-cast/src/cast/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="arrow_cast" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.0-nightly (98489f248 2024-06-06)" data-channel="nightly" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `arrow-cast/src/cast/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="arrow_cast" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0-nightly (d7f6ebace 2024-06-16)" data-channel="nightly" data-search-js="search-0fe7219eb170c82e.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -9096,6 +9096,20 @@
 <a href="#9096" id="9096">9096</a>
 <a href="#9097" id="9097">9097</a>
 <a href="#9098" id="9098">9098</a>
+<a href="#9099" id="9099">9099</a>
+<a href="#9100" id="9100">9100</a>
+<a href="#9101" id="9101">9101</a>
+<a href="#9102" id="9102">9102</a>
+<a href="#9103" id="9103">9103</a>
+<a href="#9104" id="9104">9104</a>
+<a href="#9105" id="9105">9105</a>
+<a href="#9106" id="9106">9106</a>
+<a href="#9107" id="9107">9107</a>
+<a href="#9108" id="9108">9108</a>
+<a href="#9109" id="9109">9109</a>
+<a href="#9110" id="9110">9110</a>
+<a href="#9111" id="9111">9111</a>
+<a href="#9112" id="9112">9112</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -9144,7 +9158,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::cast::list::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::cast::string::<span class="kw-2">*</span>;
 
-<span class="kw">use </span>arrow_buffer::{IntervalMonthDayNano, ScalarBuffer};
+<span class="kw">use </span>arrow_buffer::IntervalMonthDayNano;
 <span class="kw">use </span>arrow_data::ByteView;
 <span class="kw">use </span>chrono::{NaiveTime, Offset, TimeZone, Utc};
 <span class="kw">use </span>std::cmp::Ordering;
@@ -11439,47 +11453,29 @@
     FROM::Offset: OffsetSizeTrait + ToPrimitive,
     V: ByteViewType,
 {
-    <span class="kw">let </span>data = array.to_data();
-    <span class="macro">assert_eq!</span>(data.data_type(), <span class="kw-2">&amp;</span>FROM::DATA_TYPE);
-
+    <span class="kw">let </span>byte_array: <span class="kw-2">&amp;</span>GenericByteArray&lt;FROM&gt; = array.as_bytes();
     <span class="kw">let </span>len = array.len();
-    <span class="kw">let </span>str_values_buf = data.buffers()[<span class="number">1</span>].clone();
-    <span class="kw">let </span>offsets = data.buffers()[<span class="number">0</span>].typed_data::&lt;FROM::Offset&gt;();
+    <span class="kw">let </span>str_values_buf = byte_array.values().clone();
+    <span class="kw">let </span>offsets = byte_array.offsets();
 
-    <span class="kw">let </span><span class="kw-2">mut </span>views_builder = BufferBuilder::&lt;u128&gt;::new(len);
-    <span class="kw">for </span>w <span class="kw">in </span>offsets.windows(<span class="number">2</span>) {
+    <span class="kw">let </span><span class="kw-2">mut </span>views_builder = GenericByteViewBuilder::&lt;V&gt;::with_capacity(len);
+    <span class="kw">let </span>block = views_builder.append_block(str_values_buf);
+    <span class="kw">for </span>(i, w) <span class="kw">in </span>offsets.windows(<span class="number">2</span>).enumerate() {
         <span class="kw">let </span>offset = w[<span class="number">0</span>].to_u32().unwrap();
         <span class="kw">let </span>end = w[<span class="number">1</span>].to_u32().unwrap();
-        <span class="kw">let </span>value_buf = <span class="kw-2">&amp;</span>str_values_buf[offset <span class="kw">as </span>usize..end <span class="kw">as </span>usize];
         <span class="kw">let </span>length = end - offset;
 
-        <span class="kw">if </span>length &lt;= <span class="number">12 </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>view_buffer = [<span class="number">0</span>; <span class="number">16</span>];
-            view_buffer[<span class="number">0</span>..<span class="number">4</span>].copy_from_slice(<span class="kw-2">&amp;</span>length.to_le_bytes());
-            view_buffer[<span class="number">4</span>..<span class="number">4 </span>+ value_buf.len()].copy_from_slice(value_buf);
-            views_builder.append(u128::from_le_bytes(view_buffer));
+        <span class="kw">if </span>byte_array.is_null(i) {
+            views_builder.append_null();
         } <span class="kw">else </span>{
-            <span class="kw">let </span>view = ByteView {
-                length,
-                prefix: u32::from_le_bytes(value_buf[<span class="number">0</span>..<span class="number">4</span>].try_into().unwrap()),
-                buffer_index: <span class="number">0</span>,
-                offset,
-            };
-            views_builder.append(view.into());
+            <span class="comment">// Safety: the input was a valid array so it valid UTF8 (if string). And
+            // all offsets were valid and we created the views correctly
+            </span><span class="kw">unsafe </span>{ views_builder.append_view_unchecked(block, offset, length) }
         }
     }
 
     <span class="macro">assert_eq!</span>(views_builder.len(), len);
-
-    <span class="comment">// Safety: the input was a valid array so it valid UTF8 (if string). And
-    // all offsets were valid and we created the views correctly
-    </span><span class="prelude-val">Ok</span>(Arc::new(<span class="kw">unsafe </span>{
-        GenericByteViewArray::&lt;V&gt;::new_unchecked(
-            ScalarBuffer::new(views_builder.finish(), <span class="number">0</span>, len),
-            <span class="macro">vec!</span>[str_values_buf],
-            data.nulls().cloned(),
-        )
-    }))
+    <span class="prelude-val">Ok</span>(Arc::new(views_builder.finish()))
 }
 
 <span class="doccomment">/// Helper function to cast from one `ByteViewType` array to `ByteArrayType` array.
@@ -14301,19 +14297,19 @@
         _test_string_to_view::&lt;i64&gt;();
     }
 
+    <span class="kw">const </span>VIEW_TEST_DATA: [<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;; <span class="number">5</span>] = [
+        <span class="prelude-val">Some</span>(<span class="string">"hello"</span>),
+        <span class="prelude-val">Some</span>(<span class="string">"repeated"</span>),
+        <span class="prelude-val">None</span>,
+        <span class="prelude-val">Some</span>(<span class="string">"large payload over 12 bytes"</span>),
+        <span class="prelude-val">Some</span>(<span class="string">"repeated"</span>),
+    ];
+
     <span class="kw">fn </span>_test_string_to_view&lt;O&gt;()
     <span class="kw">where
         </span>O: OffsetSizeTrait,
     {
-        <span class="kw">let </span>data = <span class="macro">vec!</span>[
-            <span class="prelude-val">Some</span>(<span class="string">"hello"</span>),
-            <span class="prelude-val">Some</span>(<span class="string">"world"</span>),
-            <span class="prelude-val">None</span>,
-            <span class="prelude-val">Some</span>(<span class="string">"large payload over 12 bytes"</span>),
-            <span class="prelude-val">Some</span>(<span class="string">"lulu"</span>),
-        ];
-
-        <span class="kw">let </span>string_array = GenericStringArray::&lt;O&gt;::from(data.clone());
+        <span class="kw">let </span>string_array = GenericStringArray::&lt;O&gt;::from_iter(VIEW_TEST_DATA);
 
         <span class="macro">assert!</span>(can_cast_types(
             string_array.data_type(),
@@ -14323,7 +14319,7 @@
         <span class="kw">let </span>string_view_array = cast(<span class="kw-2">&amp;</span>string_array, <span class="kw-2">&amp;</span>DataType::Utf8View).unwrap();
         <span class="macro">assert_eq!</span>(string_view_array.data_type(), <span class="kw-2">&amp;</span>DataType::Utf8View);
 
-        <span class="kw">let </span>expect_string_view_array = StringViewArray::from(data);
+        <span class="kw">let </span>expect_string_view_array = StringViewArray::from_iter(VIEW_TEST_DATA);
         <span class="macro">assert_eq!</span>(string_view_array.as_ref(), <span class="kw-2">&amp;</span>expect_string_view_array);
     }
 
@@ -14337,15 +14333,7 @@
     <span class="kw">where
         </span>O: OffsetSizeTrait,
     {
-        <span class="kw">let </span>data: Vec&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[u8]&gt;&gt; = <span class="macro">vec!</span>[
-            <span class="prelude-val">Some</span>(<span class="string">b"hello"</span>),
-            <span class="prelude-val">Some</span>(<span class="string">b"world"</span>),
-            <span class="prelude-val">None</span>,
-            <span class="prelude-val">Some</span>(<span class="string">b"large payload over 12 bytes"</span>),
-            <span class="prelude-val">Some</span>(<span class="string">b"lulu"</span>),
-        ];
-
-        <span class="kw">let </span>binary_array = GenericBinaryArray::&lt;O&gt;::from(data.clone());
+        <span class="kw">let </span>binary_array = GenericBinaryArray::&lt;O&gt;::from_iter(VIEW_TEST_DATA);
 
         <span class="macro">assert!</span>(can_cast_types(
             binary_array.data_type(),
@@ -14355,8 +14343,66 @@
         <span class="kw">let </span>binary_view_array = cast(<span class="kw-2">&amp;</span>binary_array, <span class="kw-2">&amp;</span>DataType::BinaryView).unwrap();
         <span class="macro">assert_eq!</span>(binary_view_array.data_type(), <span class="kw-2">&amp;</span>DataType::BinaryView);
 
-        <span class="kw">let </span>expect_binary_view_array = BinaryViewArray::from(data);
+        <span class="kw">let </span>expect_binary_view_array = BinaryViewArray::from_iter(VIEW_TEST_DATA);
         <span class="macro">assert_eq!</span>(binary_view_array.as_ref(), <span class="kw-2">&amp;</span>expect_binary_view_array);
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_dict_to_view() {
+        <span class="kw">let </span>values = StringArray::from_iter(VIEW_TEST_DATA);
+        <span class="kw">let </span>keys = Int8Array::from_iter([<span class="prelude-val">Some</span>(<span class="number">1</span>), <span class="prelude-val">Some</span>(<span class="number">0</span>), <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(<span class="number">3</span>), <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(<span class="number">1</span>), <span class="prelude-val">Some</span>(<span class="number">4</span>)]);
+        <span class="kw">let </span>string_dict_array =
+            DictionaryArray::&lt;Int8Type&gt;::try_new(keys, Arc::new(values)).unwrap();
+        <span class="kw">let </span>typed_dict = string_dict_array.downcast_dict::&lt;StringArray&gt;().unwrap();
+
+        <span class="kw">let </span>string_view_array = {
+            <span class="kw">let </span><span class="kw-2">mut </span>builder = StringViewBuilder::new().with_block_size(<span class="number">8</span>); <span class="comment">// multiple buffers.
+            </span><span class="kw">for </span>v <span class="kw">in </span>typed_dict.into_iter() {
+                builder.append_option(v);
+            }
+            builder.finish()
+        };
+        <span class="kw">let </span>expected_string_array_type = string_view_array.data_type();
+        <span class="kw">let </span>casted_string_array = cast(<span class="kw-2">&amp;</span>string_dict_array, expected_string_array_type).unwrap();
+        <span class="macro">assert_eq!</span>(casted_string_array.data_type(), expected_string_array_type);
+        <span class="macro">assert_eq!</span>(casted_string_array.as_ref(), <span class="kw-2">&amp;</span>string_view_array);
+
+        <span class="kw">let </span>binary_buffer = cast(<span class="kw-2">&amp;</span>typed_dict.values(), <span class="kw-2">&amp;</span>DataType::Binary).unwrap();
+        <span class="kw">let </span>binary_dict_array =
+            DictionaryArray::&lt;Int8Type&gt;::new(typed_dict.keys().clone(), binary_buffer);
+        <span class="kw">let </span>typed_binary_dict = binary_dict_array.downcast_dict::&lt;BinaryArray&gt;().unwrap();
+
+        <span class="kw">let </span>binary_view_array = {
+            <span class="kw">let </span><span class="kw-2">mut </span>builder = BinaryViewBuilder::new().with_block_size(<span class="number">8</span>); <span class="comment">// multiple buffers.
+            </span><span class="kw">for </span>v <span class="kw">in </span>typed_binary_dict.into_iter() {
+                builder.append_option(v);
+            }
+            builder.finish()
+        };
+        <span class="kw">let </span>expected_binary_array_type = binary_view_array.data_type();
+        <span class="kw">let </span>casted_binary_array = cast(<span class="kw-2">&amp;</span>binary_dict_array, expected_binary_array_type).unwrap();
+        <span class="macro">assert_eq!</span>(casted_binary_array.data_type(), expected_binary_array_type);
+        <span class="macro">assert_eq!</span>(casted_binary_array.as_ref(), <span class="kw-2">&amp;</span>binary_view_array);
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_view_to_dict() {
+        <span class="kw">let </span>string_view_array = StringViewArray::from_iter(VIEW_TEST_DATA);
+        <span class="kw">let </span>string_dict_array: DictionaryArray&lt;Int8Type&gt; = VIEW_TEST_DATA.into_iter().collect();
+        <span class="kw">let </span>casted_type = string_dict_array.data_type();
+        <span class="kw">let </span>casted_dict_array = cast(<span class="kw-2">&amp;</span>string_view_array, casted_type).unwrap();
+        <span class="macro">assert_eq!</span>(casted_dict_array.data_type(), casted_type);
+        <span class="macro">assert_eq!</span>(casted_dict_array.as_ref(), <span class="kw-2">&amp;</span>string_dict_array);
+
+        <span class="kw">let </span>binary_view_array = BinaryViewArray::from_iter(VIEW_TEST_DATA);
+        <span class="kw">let </span>binary_dict_array = string_dict_array.downcast_dict::&lt;StringArray&gt;().unwrap();
+        <span class="kw">let </span>binary_buffer = cast(<span class="kw-2">&amp;</span>binary_dict_array.values(), <span class="kw-2">&amp;</span>DataType::Binary).unwrap();
+        <span class="kw">let </span>binary_dict_array =
+            DictionaryArray::&lt;Int8Type&gt;::new(binary_dict_array.keys().clone(), binary_buffer);
+        <span class="kw">let </span>casted_type = binary_dict_array.data_type();
+        <span class="kw">let </span>casted_binary_array = cast(<span class="kw-2">&amp;</span>binary_view_array, casted_type).unwrap();
+        <span class="macro">assert_eq!</span>(casted_binary_array.data_type(), casted_type);
+        <span class="macro">assert_eq!</span>(casted_binary_array.as_ref(), <span class="kw-2">&amp;</span>binary_dict_array);
     }
 
     <span class="attr">#[test]
@@ -14369,24 +14415,15 @@
     <span class="kw">where
         </span>O: OffsetSizeTrait,
     {
-        <span class="kw">let </span>data: Vec&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;&gt; = <span class="macro">vec!</span>[
-            <span class="prelude-val">Some</span>(<span class="string">"hello"</span>),
-            <span class="prelude-val">Some</span>(<span class="string">"world"</span>),
-            <span class="prelude-val">None</span>,
-            <span class="prelude-val">Some</span>(<span class="string">"large payload over 12 bytes"</span>),
-            <span class="prelude-val">Some</span>(<span class="string">"lulu"</span>),
-        ];
-
         <span class="kw">let </span>view_array = {
-            <span class="comment">// ["hello", "world", null, "large payload over 12 bytes", "lulu"]
-            </span><span class="kw">let </span><span class="kw-2">mut </span>builder = StringViewBuilder::new().with_block_size(<span class="number">8</span>); <span class="comment">// multiple buffers.
-            </span><span class="kw">for </span>s <span class="kw">in </span>data.iter() {
+            <span class="kw">let </span><span class="kw-2">mut </span>builder = StringViewBuilder::new().with_block_size(<span class="number">8</span>); <span class="comment">// multiple buffers.
+            </span><span class="kw">for </span>s <span class="kw">in </span>VIEW_TEST_DATA.iter() {
                 builder.append_option(<span class="kw-2">*</span>s);
             }
             builder.finish()
         };
 
-        <span class="kw">let </span>expected_string_array = GenericStringArray::&lt;O&gt;::from(data);
+        <span class="kw">let </span>expected_string_array = GenericStringArray::&lt;O&gt;::from_iter(VIEW_TEST_DATA);
         <span class="kw">let </span>expected_type = expected_string_array.data_type();
 
         <span class="macro">assert!</span>(can_cast_types(view_array.data_type(), expected_type));
@@ -14407,24 +14444,15 @@
     <span class="kw">where
         </span>O: OffsetSizeTrait,
     {
-        <span class="kw">let </span>data: Vec&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[u8]&gt;&gt; = <span class="macro">vec!</span>[
-            <span class="prelude-val">Some</span>(<span class="string">b"hello"</span>),
-            <span class="prelude-val">Some</span>(<span class="string">b"world"</span>),
-            <span class="prelude-val">None</span>,
-            <span class="prelude-val">Some</span>(<span class="string">b"large payload over 12 bytes"</span>),
-            <span class="prelude-val">Some</span>(<span class="string">b"lulu"</span>),
-        ];
-
         <span class="kw">let </span>view_array = {
-            <span class="comment">// ["hello", "world", null, "large payload over 12 bytes", "lulu"]
-            </span><span class="kw">let </span><span class="kw-2">mut </span>builder = BinaryViewBuilder::new().with_block_size(<span class="number">8</span>); <span class="comment">// multiple buffers.
-            </span><span class="kw">for </span>s <span class="kw">in </span>data.iter() {
+            <span class="kw">let </span><span class="kw-2">mut </span>builder = BinaryViewBuilder::new().with_block_size(<span class="number">8</span>); <span class="comment">// multiple buffers.
+            </span><span class="kw">for </span>s <span class="kw">in </span>VIEW_TEST_DATA.iter() {
                 builder.append_option(<span class="kw-2">*</span>s);
             }
             builder.finish()
         };
 
-        <span class="kw">let </span>expected_binary_array = GenericBinaryArray::&lt;O&gt;::from(data);
+        <span class="kw">let </span>expected_binary_array = GenericBinaryArray::&lt;O&gt;::from_iter(VIEW_TEST_DATA);
         <span class="kw">let </span>expected_type = expected_binary_array.data_type();
 
         <span class="macro">assert!</span>(can_cast_types(view_array.data_type(), expected_type));
