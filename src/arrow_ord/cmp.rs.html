@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `arrow-ord/src/cmp.rs`."><title>cmp.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="arrow_ord" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0-nightly (d7f6ebace 2024-06-16)" data-channel="nightly" data-search-js="search-0fe7219eb170c82e.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `arrow-ord/src/cmp.rs`."><title>cmp.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="arrow_ord" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0-nightly (9c3bc805d 2024-06-27)" data-channel="nightly" data-search-js="search-0fe7219eb170c82e.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -826,6 +826,32 @@
 <a href="#826" id="826">826</a>
 <a href="#827" id="827">827</a>
 <a href="#828" id="828">828</a>
+<a href="#829" id="829">829</a>
+<a href="#830" id="830">830</a>
+<a href="#831" id="831">831</a>
+<a href="#832" id="832">832</a>
+<a href="#833" id="833">833</a>
+<a href="#834" id="834">834</a>
+<a href="#835" id="835">835</a>
+<a href="#836" id="836">836</a>
+<a href="#837" id="837">837</a>
+<a href="#838" id="838">838</a>
+<a href="#839" id="839">839</a>
+<a href="#840" id="840">840</a>
+<a href="#841" id="841">841</a>
+<a href="#842" id="842">842</a>
+<a href="#843" id="843">843</a>
+<a href="#844" id="844">844</a>
+<a href="#845" id="845">845</a>
+<a href="#846" id="846">846</a>
+<a href="#847" id="847">847</a>
+<a href="#848" id="848">848</a>
+<a href="#849" id="849">849</a>
+<a href="#850" id="850">850</a>
+<a href="#851" id="851">851</a>
+<a href="#852" id="852">852</a>
+<a href="#853" id="853">853</a>
+<a href="#854" id="854">854</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -898,9 +924,11 @@
 /// For floating values like f32 and f64, this comparison produces an ordering in accordance to
 /// the totalOrder predicate as defined in the IEEE 754 (2008 revision) floating point standard.
 /// Note that totalOrder treats positive and negative zeros as different. If it is necessary
-/// to treat them as equal, please normalize zeros before calling this kernel.
+/// to treat them as equal, please normalize zeros before calling this kernel. See
+/// [`f32::total_cmp`] and [`f64::total_cmp`].
 ///
-/// Please refer to [`f32::total_cmp`] and [`f64::total_cmp`]
+/// Nested types, such as lists, are not supported as the null semantics are not well-defined.
+/// For comparisons involving nested types see [`crate::ord::make_comparator`]
 </span><span class="kw">pub fn </span>eq(lhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum, rhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum) -&gt; <span class="prelude-ty">Result</span>&lt;BooleanArray, ArrowError&gt; {
     compare_op(Op::Equal, lhs, rhs)
 }
@@ -913,9 +941,11 @@
 /// For floating values like f32 and f64, this comparison produces an ordering in accordance to
 /// the totalOrder predicate as defined in the IEEE 754 (2008 revision) floating point standard.
 /// Note that totalOrder treats positive and negative zeros as different. If it is necessary
-/// to treat them as equal, please normalize zeros before calling this kernel.
+/// to treat them as equal, please normalize zeros before calling this kernel. See
+/// [`f32::total_cmp`] and [`f64::total_cmp`].
 ///
-/// Please refer to [`f32::total_cmp`] and [`f64::total_cmp`]
+/// Nested types, such as lists, are not supported as the null semantics are not well-defined.
+/// For comparisons involving nested types see [`crate::ord::make_comparator`]
 </span><span class="kw">pub fn </span>neq(lhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum, rhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum) -&gt; <span class="prelude-ty">Result</span>&lt;BooleanArray, ArrowError&gt; {
     compare_op(Op::NotEqual, lhs, rhs)
 }
@@ -928,9 +958,11 @@
 /// For floating values like f32 and f64, this comparison produces an ordering in accordance to
 /// the totalOrder predicate as defined in the IEEE 754 (2008 revision) floating point standard.
 /// Note that totalOrder treats positive and negative zeros as different. If it is necessary
-/// to treat them as equal, please normalize zeros before calling this kernel.
+/// to treat them as equal, please normalize zeros before calling this kernel. See
+/// [`f32::total_cmp`] and [`f64::total_cmp`].
 ///
-/// Please refer to [`f32::total_cmp`] and [`f64::total_cmp`]
+/// Nested types, such as lists, are not supported as the null semantics are not well-defined.
+/// For comparisons involving nested types see [`crate::ord::make_comparator`]
 </span><span class="kw">pub fn </span>lt(lhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum, rhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum) -&gt; <span class="prelude-ty">Result</span>&lt;BooleanArray, ArrowError&gt; {
     compare_op(Op::Less, lhs, rhs)
 }
@@ -943,9 +975,11 @@
 /// For floating values like f32 and f64, this comparison produces an ordering in accordance to
 /// the totalOrder predicate as defined in the IEEE 754 (2008 revision) floating point standard.
 /// Note that totalOrder treats positive and negative zeros as different. If it is necessary
-/// to treat them as equal, please normalize zeros before calling this kernel.
+/// to treat them as equal, please normalize zeros before calling this kernel. See
+/// [`f32::total_cmp`] and [`f64::total_cmp`].
 ///
-/// Please refer to [`f32::total_cmp`] and [`f64::total_cmp`]
+/// Nested types, such as lists, are not supported as the null semantics are not well-defined.
+/// For comparisons involving nested types see [`crate::ord::make_comparator`]
 </span><span class="kw">pub fn </span>lt_eq(lhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum, rhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum) -&gt; <span class="prelude-ty">Result</span>&lt;BooleanArray, ArrowError&gt; {
     compare_op(Op::LessEqual, lhs, rhs)
 }
@@ -958,9 +992,11 @@
 /// For floating values like f32 and f64, this comparison produces an ordering in accordance to
 /// the totalOrder predicate as defined in the IEEE 754 (2008 revision) floating point standard.
 /// Note that totalOrder treats positive and negative zeros as different. If it is necessary
-/// to treat them as equal, please normalize zeros before calling this kernel.
+/// to treat them as equal, please normalize zeros before calling this kernel. See
+/// [`f32::total_cmp`] and [`f64::total_cmp`].
 ///
-/// Please refer to [`f32::total_cmp`] and [`f64::total_cmp`]
+/// Nested types, such as lists, are not supported as the null semantics are not well-defined.
+/// For comparisons involving nested types see [`crate::ord::make_comparator`]
 </span><span class="kw">pub fn </span>gt(lhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum, rhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum) -&gt; <span class="prelude-ty">Result</span>&lt;BooleanArray, ArrowError&gt; {
     compare_op(Op::Greater, lhs, rhs)
 }
@@ -973,9 +1009,11 @@
 /// For floating values like f32 and f64, this comparison produces an ordering in accordance to
 /// the totalOrder predicate as defined in the IEEE 754 (2008 revision) floating point standard.
 /// Note that totalOrder treats positive and negative zeros as different. If it is necessary
-/// to treat them as equal, please normalize zeros before calling this kernel.
+/// to treat them as equal, please normalize zeros before calling this kernel. See
+/// [`f32::total_cmp`] and [`f64::total_cmp`].
 ///
-/// Please refer to [`f32::total_cmp`] and [`f64::total_cmp`]
+/// Nested types, such as lists, are not supported as the null semantics are not well-defined.
+/// For comparisons involving nested types see [`crate::ord::make_comparator`]
 </span><span class="kw">pub fn </span>gt_eq(lhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum, rhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum) -&gt; <span class="prelude-ty">Result</span>&lt;BooleanArray, ArrowError&gt; {
     compare_op(Op::GreaterEqual, lhs, rhs)
 }
@@ -989,9 +1027,11 @@
 /// For floating values like f32 and f64, this comparison produces an ordering in accordance to
 /// the totalOrder predicate as defined in the IEEE 754 (2008 revision) floating point standard.
 /// Note that totalOrder treats positive and negative zeros as different. If it is necessary
-/// to treat them as equal, please normalize zeros before calling this kernel.
+/// to treat them as equal, please normalize zeros before calling this kernel. See
+/// [`f32::total_cmp`] and [`f64::total_cmp`].
 ///
-/// Please refer to [`f32::total_cmp`] and [`f64::total_cmp`]
+/// Nested types, such as lists, are not supported as the null semantics are not well-defined.
+/// For comparisons involving nested types see [`crate::ord::make_comparator`]
 </span><span class="kw">pub fn </span>distinct(lhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum, rhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum) -&gt; <span class="prelude-ty">Result</span>&lt;BooleanArray, ArrowError&gt; {
     compare_op(Op::Distinct, lhs, rhs)
 }
@@ -1005,9 +1045,11 @@
 /// For floating values like f32 and f64, this comparison produces an ordering in accordance to
 /// the totalOrder predicate as defined in the IEEE 754 (2008 revision) floating point standard.
 /// Note that totalOrder treats positive and negative zeros as different. If it is necessary
-/// to treat them as equal, please normalize zeros before calling this kernel.
+/// to treat them as equal, please normalize zeros before calling this kernel. See
+/// [`f32::total_cmp`] and [`f64::total_cmp`].
 ///
-/// Please refer to [`f32::total_cmp`] and [`f64::total_cmp`]
+/// Nested types, such as lists, are not supported as the null semantics are not well-defined.
+/// For comparisons involving nested types see [`crate::ord::make_comparator`]
 </span><span class="kw">pub fn </span>not_distinct(lhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum, rhs: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Datum) -&gt; <span class="prelude-ty">Result</span>&lt;BooleanArray, ArrowError&gt; {
     compare_op(Op::NotDistinct, lhs, rhs)
 }
@@ -1044,7 +1086,11 @@
     <span class="kw">let </span>r = r_v.map(|x| x.values().as_ref()).unwrap_or(r);
     <span class="kw">let </span>r_t = r.data_type();
 
-    <span class="kw">if </span>l_t != r_t || l_t.is_nested() {
+    <span class="kw">if </span>r_t.is_nested() || l_t.is_nested() {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(ArrowError::InvalidArgumentError(<span class="macro">format!</span>(
+            <span class="string">"Nested comparison: {l_t} {op} {r_t} (hint: use make_comparator instead)"
+        </span>)));
+    } <span class="kw">else if </span>l_t != r_t {
         <span class="kw">return </span><span class="prelude-val">Err</span>(ArrowError::InvalidArgumentError(<span class="macro">format!</span>(
             <span class="string">"Invalid comparison operation: {l_t} {op} {r_t}"
         </span>)));
@@ -1368,98 +1414,32 @@
     }
 }
 
-<span class="doccomment">/// Comparing two ByteView types are non-trivial.
-/// It takes a bit of patience to understand why we don't just compare two &amp;[u8] directly.
-///
-/// ByteView types give us the following two advantages, and we need to be careful not to lose them:
-/// (1) For string/byte smaller than 12 bytes, the entire data is inlined in the view.
-///     Meaning that reading one array element requires only one memory access
-///     (two memory access required for StringArray, one for offset buffer, the other for value buffer).
-///
-/// (2) For string/byte larger than 12 bytes, we can still be faster than (for certain operations) StringArray/ByteArray,
-///     thanks to the inlined 4 bytes.
-///     Consider equality check:
-///     If the first four bytes of the two strings are different, we can return false immediately (with just one memory access).
-///     If we are unlucky and the first four bytes are the same, we need to fallback to compare two full strings.
-</span><span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, T: ByteViewType&gt; ArrayOrd <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">'a </span>GenericByteViewArray&lt;T&gt; {
-    <span class="doccomment">/// Item.0 is the array, Item.1 is the index into the array.
-    /// Why don't we just store Item.0[Item.1] as the item?
-    ///  - Because if we do so, we materialize the entire string (i.e., make multiple memory accesses), which might be unnecessary.
-    ///  - Most of the time (eq, ord), we only need to look at the first 4 bytes to know the answer,
-    ///     e.g., if the inlined 4 bytes are different, we can directly return unequal without looking at the full string.
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, T: ByteViewType&gt; ArrayOrd <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">'a </span>GenericByteViewArray&lt;T&gt; {
+    <span class="doccomment">/// This is the item type for the GenericByteViewArray::compare
+    /// Item.0 is the array, Item.1 is the index
     </span><span class="kw">type </span>Item = (<span class="kw-2">&amp;</span><span class="lifetime">'a </span>GenericByteViewArray&lt;T&gt;, usize);
 
-    <span class="doccomment">/// # Equality check flow
-    /// (1) if both string are smaller than 12 bytes, we can directly compare the data inlined to the view.
-    /// (2) if any of the string is larger than 12 bytes, we need to compare the full string.
-    ///     (2.1) if the inlined 4 bytes are different, we can return false immediately.
-    ///     (2.2) o.w., we need to compare the full string.
-    ///
-    /// # Safety
-    /// (1) Indexing. The Self::Item.1 encodes the index value, which is already checked in `value` function,
-    ///               so it is safe to index into the views.
-    /// (2) Slice data from view. We know the bytes 4-8 are inlined data (per spec), so it is safe to slice from the view.
-    </span><span class="kw">fn </span>is_eq(l: <span class="self">Self</span>::Item, r: <span class="self">Self</span>::Item) -&gt; bool {
-        <span class="kw">let </span>l_view = <span class="kw">unsafe </span>{ l.<span class="number">0</span>.views().get_unchecked(l.<span class="number">1</span>) };
+    <span class="kw">fn </span>is_eq(l: <span class="self">Self</span>::Item, r: <span class="self">Self</span>::Item) -&gt; bool {
+        <span class="comment">// # Safety
+        // The index is within bounds as it is checked in value()
+        </span><span class="kw">let </span>l_view = <span class="kw">unsafe </span>{ l.<span class="number">0</span>.views().get_unchecked(l.<span class="number">1</span>) };
         <span class="kw">let </span>l_len = <span class="kw-2">*</span>l_view <span class="kw">as </span>u32;
 
         <span class="kw">let </span>r_view = <span class="kw">unsafe </span>{ r.<span class="number">0</span>.views().get_unchecked(r.<span class="number">1</span>) };
         <span class="kw">let </span>r_len = <span class="kw-2">*</span>r_view <span class="kw">as </span>u32;
-
-        <span class="kw">if </span>l_len != r_len {
+        <span class="comment">// This is a fast path for equality check.
+        // We don't need to look at the actual bytes to determine if they are equal.
+        </span><span class="kw">if </span>l_len != r_len {
             <span class="kw">return </span><span class="bool-val">false</span>;
         }
 
-        <span class="kw">if </span>l_len &lt;= <span class="number">12 </span>{
-            <span class="kw">let </span>l_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(l_view, l_len <span class="kw">as </span>usize) };
-            <span class="kw">let </span>r_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(r_view, r_len <span class="kw">as </span>usize) };
-            l_data == r_data
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>l_inlined_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(l_view, <span class="number">4</span>) };
-            <span class="kw">let </span>r_inlined_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(r_view, <span class="number">4</span>) };
-            <span class="kw">if </span>l_inlined_data != r_inlined_data {
-                <span class="kw">return </span><span class="bool-val">false</span>;
-            }
-
-            <span class="kw">let </span>l_full_data: <span class="kw-2">&amp;</span>[u8] = <span class="kw">unsafe </span>{ l.<span class="number">0</span>.value_unchecked(l.<span class="number">1</span>).as_ref() };
-            <span class="kw">let </span>r_full_data: <span class="kw-2">&amp;</span>[u8] = <span class="kw">unsafe </span>{ r.<span class="number">0</span>.value_unchecked(r.<span class="number">1</span>).as_ref() };
-            l_full_data == r_full_data
-        }
+        <span class="kw">unsafe </span>{ compare_byte_view_unchecked(l.<span class="number">0</span>, l.<span class="number">1</span>, r.<span class="number">0</span>, r.<span class="number">1</span>).is_eq() }
     }
 
-    <span class="doccomment">/// # Ordering check flow
-    /// (1) if both string are smaller than 12 bytes, we can directly compare the data inlined to the view.
-    /// (2) if any of the string is larger than 12 bytes, we need to compare the full string.
-    ///     (2.1) if the inlined 4 bytes are different, we can return the result immediately.
-    ///     (2.2) o.w., we need to compare the full string.
-    ///
-    /// # Safety
-    /// (1) Indexing. The Self::Item.1 encodes the index value, which is already checked in `value` function,
-    ///              so it is safe to index into the views.
-    /// (2) Slice data from view. We know the bytes 4-8 are inlined data (per spec), so it is safe to slice from the view.
-    </span><span class="kw">fn </span>is_lt(l: <span class="self">Self</span>::Item, r: <span class="self">Self</span>::Item) -&gt; bool {
-        <span class="kw">let </span>l_view = l.<span class="number">0</span>.views().get(l.<span class="number">1</span>).unwrap();
-        <span class="kw">let </span>l_len = <span class="kw-2">*</span>l_view <span class="kw">as </span>u32;
-
-        <span class="kw">let </span>r_view = r.<span class="number">0</span>.views().get(r.<span class="number">1</span>).unwrap();
-        <span class="kw">let </span>r_len = <span class="kw-2">*</span>r_view <span class="kw">as </span>u32;
-
-        <span class="kw">if </span>l_len &lt;= <span class="number">12 </span>&amp;&amp; r_len &lt;= <span class="number">12 </span>{
-            <span class="kw">let </span>l_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(l_view, l_len <span class="kw">as </span>usize) };
-            <span class="kw">let </span>r_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(r_view, r_len <span class="kw">as </span>usize) };
-            <span class="kw">return </span>l_data &lt; r_data;
-        }
-        <span class="comment">// one of the string is larger than 12 bytes,
-        // we then try to compare the inlined data first
-        </span><span class="kw">let </span>l_inlined_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(l_view, <span class="number">4</span>) };
-        <span class="kw">let </span>r_inlined_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(r_view, <span class="number">4</span>) };
-        <span class="kw">if </span>r_inlined_data != l_inlined_data {
-            <span class="kw">return </span>l_inlined_data &lt; r_inlined_data;
-        }
-        <span class="comment">// unfortunately, we need to compare the full data
-        </span><span class="kw">let </span>l_full_data: <span class="kw-2">&amp;</span>[u8] = <span class="kw">unsafe </span>{ l.<span class="number">0</span>.value_unchecked(l.<span class="number">1</span>).as_ref() };
-        <span class="kw">let </span>r_full_data: <span class="kw-2">&amp;</span>[u8] = <span class="kw">unsafe </span>{ r.<span class="number">0</span>.value_unchecked(r.<span class="number">1</span>).as_ref() };
-        l_full_data &lt; r_full_data
+    <span class="kw">fn </span>is_lt(l: <span class="self">Self</span>::Item, r: <span class="self">Self</span>::Item) -&gt; bool {
+        <span class="comment">// # Safety
+        // The index is within bounds as it is checked in value()
+        </span><span class="kw">unsafe </span>{ compare_byte_view_unchecked(l.<span class="number">0</span>, l.<span class="number">1</span>, r.<span class="number">0</span>, r.<span class="number">1</span>).is_lt() }
     }
 
     <span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
@@ -1489,6 +1469,78 @@
     <span class="kw">fn </span>is_lt(l: <span class="self">Self</span>::Item, r: <span class="self">Self</span>::Item) -&gt; bool {
         l &lt; r
     }
+}
+
+<span class="doccomment">/// Compares two [`GenericByteViewArray`] at index `left_idx` and `right_idx`
+</span><span class="kw">pub fn </span>compare_byte_view&lt;T: ByteViewType&gt;(
+    left: <span class="kw-2">&amp;</span>GenericByteViewArray&lt;T&gt;,
+    left_idx: usize,
+    right: <span class="kw-2">&amp;</span>GenericByteViewArray&lt;T&gt;,
+    right_idx: usize,
+) -&gt; std::cmp::Ordering {
+    <span class="macro">assert!</span>(left_idx &lt; left.len());
+    <span class="macro">assert!</span>(right_idx &lt; right.len());
+    <span class="kw">unsafe </span>{ compare_byte_view_unchecked(left, left_idx, right, right_idx) }
+}
+
+<span class="doccomment">/// Comparing two [`GenericByteViewArray`] at index `left_idx` and `right_idx`
+///
+/// Comparing two ByteView types are non-trivial.
+/// It takes a bit of patience to understand why we don't just compare two &amp;[u8] directly.
+///
+/// ByteView types give us the following two advantages, and we need to be careful not to lose them:
+/// (1) For string/byte smaller than 12 bytes, the entire data is inlined in the view.
+///     Meaning that reading one array element requires only one memory access
+///     (two memory access required for StringArray, one for offset buffer, the other for value buffer).
+///
+/// (2) For string/byte larger than 12 bytes, we can still be faster than (for certain operations) StringArray/ByteArray,
+///     thanks to the inlined 4 bytes.
+///     Consider equality check:
+///     If the first four bytes of the two strings are different, we can return false immediately (with just one memory access).
+///
+/// If we directly compare two &amp;[u8], we materialize the entire string (i.e., make multiple memory accesses), which might be unnecessary.
+/// - Most of the time (eq, ord), we only need to look at the first 4 bytes to know the answer,
+///   e.g., if the inlined 4 bytes are different, we can directly return unequal without looking at the full string.
+///
+/// # Order check flow
+/// (1) if both string are smaller than 12 bytes, we can directly compare the data inlined to the view.
+/// (2) if any of the string is larger than 12 bytes, we need to compare the full string.
+///     (2.1) if the inlined 4 bytes are different, we can return the result immediately.
+///     (2.2) o.w., we need to compare the full string.
+///
+/// # Safety
+/// The left/right_idx must within range of each array
+</span><span class="kw">pub unsafe fn </span>compare_byte_view_unchecked&lt;T: ByteViewType&gt;(
+    left: <span class="kw-2">&amp;</span>GenericByteViewArray&lt;T&gt;,
+    left_idx: usize,
+    right: <span class="kw-2">&amp;</span>GenericByteViewArray&lt;T&gt;,
+    right_idx: usize,
+) -&gt; std::cmp::Ordering {
+    <span class="kw">let </span>l_view = left.views().get_unchecked(left_idx);
+    <span class="kw">let </span>l_len = <span class="kw-2">*</span>l_view <span class="kw">as </span>u32;
+
+    <span class="kw">let </span>r_view = right.views().get_unchecked(right_idx);
+    <span class="kw">let </span>r_len = <span class="kw-2">*</span>r_view <span class="kw">as </span>u32;
+
+    <span class="kw">if </span>l_len &lt;= <span class="number">12 </span>&amp;&amp; r_len &lt;= <span class="number">12 </span>{
+        <span class="kw">let </span>l_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(l_view, l_len <span class="kw">as </span>usize) };
+        <span class="kw">let </span>r_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(r_view, r_len <span class="kw">as </span>usize) };
+        <span class="kw">return </span>l_data.cmp(r_data);
+    }
+
+    <span class="comment">// one of the string is larger than 12 bytes,
+    // we then try to compare the inlined data first
+    </span><span class="kw">let </span>l_inlined_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(l_view, <span class="number">4</span>) };
+    <span class="kw">let </span>r_inlined_data = <span class="kw">unsafe </span>{ GenericByteViewArray::&lt;T&gt;::inline_value(r_view, <span class="number">4</span>) };
+    <span class="kw">if </span>r_inlined_data != l_inlined_data {
+        <span class="kw">return </span>l_inlined_data.cmp(r_inlined_data);
+    }
+
+    <span class="comment">// unfortunately, we need to compare the full data
+    </span><span class="kw">let </span>l_full_data: <span class="kw-2">&amp;</span>[u8] = <span class="kw">unsafe </span>{ left.value_unchecked(left_idx).as_ref() };
+    <span class="kw">let </span>r_full_data: <span class="kw-2">&amp;</span>[u8] = <span class="kw">unsafe </span>{ right.value_unchecked(right_idx).as_ref() };
+
+    l_full_data.cmp(r_full_data)
 }
 
 <span class="attr">#[cfg(test)]

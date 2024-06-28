@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `arrow-row/src/lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="arrow_row" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0-nightly (d7f6ebace 2024-06-16)" data-channel="nightly" data-search-js="search-0fe7219eb170c82e.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `arrow-row/src/lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="arrow_row" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0-nightly (9c3bc805d 2024-06-27)" data-channel="nightly" data-search-js="search-0fe7219eb170c82e.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2319,6 +2319,62 @@
 <a href="#2319" id="2319">2319</a>
 <a href="#2320" id="2320">2320</a>
 <a href="#2321" id="2321">2321</a>
+<a href="#2322" id="2322">2322</a>
+<a href="#2323" id="2323">2323</a>
+<a href="#2324" id="2324">2324</a>
+<a href="#2325" id="2325">2325</a>
+<a href="#2326" id="2326">2326</a>
+<a href="#2327" id="2327">2327</a>
+<a href="#2328" id="2328">2328</a>
+<a href="#2329" id="2329">2329</a>
+<a href="#2330" id="2330">2330</a>
+<a href="#2331" id="2331">2331</a>
+<a href="#2332" id="2332">2332</a>
+<a href="#2333" id="2333">2333</a>
+<a href="#2334" id="2334">2334</a>
+<a href="#2335" id="2335">2335</a>
+<a href="#2336" id="2336">2336</a>
+<a href="#2337" id="2337">2337</a>
+<a href="#2338" id="2338">2338</a>
+<a href="#2339" id="2339">2339</a>
+<a href="#2340" id="2340">2340</a>
+<a href="#2341" id="2341">2341</a>
+<a href="#2342" id="2342">2342</a>
+<a href="#2343" id="2343">2343</a>
+<a href="#2344" id="2344">2344</a>
+<a href="#2345" id="2345">2345</a>
+<a href="#2346" id="2346">2346</a>
+<a href="#2347" id="2347">2347</a>
+<a href="#2348" id="2348">2348</a>
+<a href="#2349" id="2349">2349</a>
+<a href="#2350" id="2350">2350</a>
+<a href="#2351" id="2351">2351</a>
+<a href="#2352" id="2352">2352</a>
+<a href="#2353" id="2353">2353</a>
+<a href="#2354" id="2354">2354</a>
+<a href="#2355" id="2355">2355</a>
+<a href="#2356" id="2356">2356</a>
+<a href="#2357" id="2357">2357</a>
+<a href="#2358" id="2358">2358</a>
+<a href="#2359" id="2359">2359</a>
+<a href="#2360" id="2360">2360</a>
+<a href="#2361" id="2361">2361</a>
+<a href="#2362" id="2362">2362</a>
+<a href="#2363" id="2363">2363</a>
+<a href="#2364" id="2364">2364</a>
+<a href="#2365" id="2365">2365</a>
+<a href="#2366" id="2366">2366</a>
+<a href="#2367" id="2367">2367</a>
+<a href="#2368" id="2368">2368</a>
+<a href="#2369" id="2369">2369</a>
+<a href="#2370" id="2370">2370</a>
+<a href="#2371" id="2371">2371</a>
+<a href="#2372" id="2372">2372</a>
+<a href="#2373" id="2373">2373</a>
+<a href="#2374" id="2374">2374</a>
+<a href="#2375" id="2375">2375</a>
+<a href="#2376" id="2376">2376</a>
+<a href="#2377" id="2377">2377</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -2456,6 +2512,7 @@
 <span class="kw">use </span>arrow_buffer::ArrowNativeType;
 <span class="kw">use </span>arrow_data::ArrayDataBuilder;
 <span class="kw">use </span>arrow_schema::<span class="kw-2">*</span>;
+<span class="kw">use </span>variable::{decode_binary_view, decode_string_view};
 
 <span class="kw">use </span><span class="kw">crate</span>::fixed::{decode_bool, decode_fixed_size_binary, decode_primitive};
 <span class="kw">use </span><span class="kw">crate</span>::variable::{decode_binary, decode_string};
@@ -3400,6 +3457,9 @@
                         .iter()
                         .zip(lengths.iter_mut())
                         .for_each(|(slice, length)| <span class="kw-2">*</span>length += variable::encoded_len(slice)),
+                    DataType::BinaryView =&gt; array.as_binary_view().iter().zip(lengths.iter_mut()).for_each(|(slice, length)| {
+                            <span class="kw-2">*</span>length += variable::encoded_len(slice)
+                        }),
                     DataType::Utf8 =&gt; array.as_string::&lt;i32&gt;()
                         .iter()
                         .zip(lengths.iter_mut())
@@ -3412,11 +3472,14 @@
                         .for_each(|(slice, length)| {
                             <span class="kw-2">*</span>length += variable::encoded_len(slice.map(|x| x.as_bytes()))
                         }),
+                    DataType::Utf8View =&gt; array.as_string_view().iter().zip(lengths.iter_mut()).for_each(|(slice, length)| {
+                        <span class="kw-2">*</span>length += variable::encoded_len(slice.map(|x| x.as_bytes()))
+                    }),
                     DataType::FixedSizeBinary(len) =&gt; {
                         <span class="kw">let </span>len = len.to_usize().unwrap();
                         lengths.iter_mut().for_each(|x| <span class="kw-2">*</span>x += <span class="number">1 </span>+ len)
                     }
-                    <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
+                    <span class="kw">_ </span>=&gt; <span class="macro">unimplemented!</span>(<span class="string">"unsupported data type: {}"</span>, array.data_type()),
                 }
             }
             Encoder::Dictionary(values, null) =&gt; {
@@ -3467,11 +3530,26 @@
     <span class="kw">match </span>encoder {
         Encoder::Stateless =&gt; {
             <span class="macro">downcast_primitive_array!</span> {
-                column =&gt; fixed::encode(data, offsets, column, opts),
+                column =&gt; {
+                    <span class="kw">if let </span><span class="prelude-val">Some</span>(nulls) = column.nulls().filter(|n| n.null_count() &gt; <span class="number">0</span>){
+                        fixed::encode(data, offsets, column.values(), nulls, opts)
+                    } <span class="kw">else </span>{
+                        fixed::encode_not_null(data, offsets, column.values(), opts)
+                    }
+                }
                 DataType::Null =&gt; {}
-                DataType::Boolean =&gt; fixed::encode(data, offsets, column.as_boolean(), opts),
+                DataType::Boolean =&gt; {
+                    <span class="kw">if let </span><span class="prelude-val">Some</span>(nulls) = column.nulls().filter(|n| n.null_count() &gt; <span class="number">0</span>){
+                        fixed::encode_boolean(data, offsets, column.as_boolean().values(), nulls, opts)
+                    } <span class="kw">else </span>{
+                        fixed::encode_boolean_not_null(data, offsets, column.as_boolean().values(), opts)
+                    }
+                }
                 DataType::Binary =&gt; {
                     variable::encode(data, offsets, as_generic_binary_array::&lt;i32&gt;(column).iter(), opts)
+                }
+                DataType::BinaryView =&gt; {
+                    variable::encode(data, offsets, column.as_binary_view().iter(), opts)
                 }
                 DataType::LargeBinary =&gt; {
                     variable::encode(data, offsets, as_generic_binary_array::&lt;i64&gt;(column).iter(), opts)
@@ -3488,11 +3566,16 @@
                         .map(|x| x.map(|x| x.as_bytes())),
                     opts,
                 ),
+                DataType::Utf8View =&gt; variable::encode(
+                    data, offsets,
+                    column.as_string_view().iter().map(|x| x.map(|x| x.as_bytes())),
+                    opts,
+                ),
                 DataType::FixedSizeBinary(<span class="kw">_</span>) =&gt; {
                     <span class="kw">let </span>array = column.as_any().downcast_ref().unwrap();
                     fixed::encode_fixed_size_binary(data, offsets, array, opts)
                 }
-                <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
+                <span class="kw">_ </span>=&gt; <span class="macro">unimplemented!</span>(<span class="string">"unsupported data type: {}"</span>, column.data_type()),
             }
         }
         Encoder::Dictionary(values, nulls) =&gt; {
@@ -3576,11 +3659,12 @@
                 DataType::Boolean =&gt; Arc::new(decode_bool(rows, options)),
                 DataType::Binary =&gt; Arc::new(decode_binary::&lt;i32&gt;(rows, options)),
                 DataType::LargeBinary =&gt; Arc::new(decode_binary::&lt;i64&gt;(rows, options)),
+                DataType::BinaryView =&gt; Arc::new(decode_binary_view(rows, options)),
                 DataType::FixedSizeBinary(size) =&gt; Arc::new(decode_fixed_size_binary(rows, size, options)),
                 DataType::Utf8 =&gt; Arc::new(decode_string::&lt;i32&gt;(rows, options, validate_utf8)),
                 DataType::LargeUtf8 =&gt; Arc::new(decode_string::&lt;i64&gt;(rows, options, validate_utf8)),
-                DataType::Dictionary(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="macro">todo!</span>(),
-                <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>()
+                DataType::Utf8View =&gt; Arc::new(decode_string_view(rows, options, validate_utf8)),
+                <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(ArrowError::NotYetImplemented(<span class="macro">format!</span>(<span class="string">"unsupported data type: {}"</span>, data_type)))
             }
         }
         Codec::Dictionary(converter, <span class="kw">_</span>) =&gt; {
@@ -4368,6 +4452,32 @@
             .collect()
     }
 
+    <span class="kw">fn </span>generate_string_view(len: usize, valid_percent: f64) -&gt; StringViewArray {
+        <span class="kw">let </span><span class="kw-2">mut </span>rng = thread_rng();
+        (<span class="number">0</span>..len)
+            .map(|<span class="kw">_</span>| {
+                rng.gen_bool(valid_percent).then(|| {
+                    <span class="kw">let </span>len = rng.gen_range(<span class="number">0</span>..<span class="number">100</span>);
+                    <span class="kw">let </span>bytes = (<span class="number">0</span>..len).map(|<span class="kw">_</span>| rng.gen_range(<span class="number">0</span>..<span class="number">128</span>)).collect();
+                    String::from_utf8(bytes).unwrap()
+                })
+            })
+            .collect()
+    }
+
+    <span class="kw">fn </span>generate_byte_view(len: usize, valid_percent: f64) -&gt; BinaryViewArray {
+        <span class="kw">let </span><span class="kw-2">mut </span>rng = thread_rng();
+        (<span class="number">0</span>..len)
+            .map(|<span class="kw">_</span>| {
+                rng.gen_bool(valid_percent).then(|| {
+                    <span class="kw">let </span>len = rng.gen_range(<span class="number">0</span>..<span class="number">100</span>);
+                    <span class="kw">let </span>bytes: Vec&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..len).map(|<span class="kw">_</span>| rng.gen_range(<span class="number">0</span>..<span class="number">128</span>)).collect();
+                    bytes
+                })
+            })
+            .collect()
+    }
+
     <span class="kw">fn </span>generate_dictionary&lt;K&gt;(
         values: ArrayRef,
         len: usize,
@@ -4448,7 +4558,7 @@
 
     <span class="kw">fn </span>generate_column(len: usize) -&gt; ArrayRef {
         <span class="kw">let </span><span class="kw-2">mut </span>rng = thread_rng();
-        <span class="kw">match </span>rng.gen_range(<span class="number">0</span>..<span class="number">14</span>) {
+        <span class="kw">match </span>rng.gen_range(<span class="number">0</span>..<span class="number">16</span>) {
             <span class="number">0 </span>=&gt; Arc::new(generate_primitive_array::&lt;Int32Type&gt;(len, <span class="number">0.8</span>)),
             <span class="number">1 </span>=&gt; Arc::new(generate_primitive_array::&lt;UInt32Type&gt;(len, <span class="number">0.8</span>)),
             <span class="number">2 </span>=&gt; Arc::new(generate_primitive_array::&lt;Int64Type&gt;(len, <span class="number">0.8</span>)),
@@ -4482,6 +4592,8 @@
             <span class="number">13 </span>=&gt; Arc::new(generate_list(len, <span class="number">0.8</span>, |values_len| {
                 Arc::new(generate_struct(values_len, <span class="number">0.8</span>))
             })),
+            <span class="number">14 </span>=&gt; Arc::new(generate_string_view(len, <span class="number">0.8</span>)),
+            <span class="number">15 </span>=&gt; Arc::new(generate_byte_view(len, <span class="number">0.8</span>)),
             <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
         }
     }
